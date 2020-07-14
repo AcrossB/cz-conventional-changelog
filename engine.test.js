@@ -42,7 +42,7 @@ describe('commit message', function() {
         type,
         subject
       })
-    ).to.equal(`[${id}] ${type}. ${subject}`);
+    ).to.equal(`[${id.toUpperCase()}] ${type}. ${subject}`);
   });
   it('header and body', function() {
     expect(
@@ -52,7 +52,7 @@ describe('commit message', function() {
         subject,
         body
       })
-    ).to.equal(`[${id}] ${type}. ${subject}\n\n${body}`);
+    ).to.equal(`[${id.toUpperCase()}] ${type}. ${subject}\n\n${body}`);
   });
   it('header, body', function() {
     expect(
@@ -62,7 +62,7 @@ describe('commit message', function() {
         subject,
         body,
       })
-    ).to.equal(`[${id}] ${type}. ${subject}\n\n${body}`);
+    ).to.equal(`[${id.toUpperCase()}] ${type}. ${subject}\n\n${body}`);
   });
   it('header, body', function() {
     expect(
@@ -72,7 +72,7 @@ describe('commit message', function() {
         subject,
         body,
       })
-    ).to.equal(`[${id}] ${type}. ${subject}\n\n${body}`);
+    ).to.equal(`[${id.toUpperCase()}] ${type}. ${subject}\n\n${body}`);
   });
   it('header and long body', function() {
     expect(
@@ -82,7 +82,7 @@ describe('commit message', function() {
         subject,
         body: longBody
       })
-    ).to.equal(`[${id}] ${type}. ${subject}\n\n${longBodySplit}`);
+    ).to.equal(`[${id.toUpperCase()}] ${type}. ${subject}\n\n${longBodySplit}`);
   });
   it('header, long body', function() {
     expect(
@@ -92,7 +92,7 @@ describe('commit message', function() {
         subject,
         body: longBody,
       })
-    ).to.equal(`[${id}] ${type}. ${subject}\n\n${longBodySplit}`);
+    ).to.equal(`[${id.toUpperCase()}] ${type}. ${subject}\n\n${longBodySplit}`);
   });
   it('header, long body', function() {
     expect(
@@ -102,7 +102,7 @@ describe('commit message', function() {
         subject,
         body: longBody,
       })
-    ).to.equal(`[${id}] ${type}. ${subject}\n\n${longBodySplit}`);
+    ).to.equal(`[${id.toUpperCase()}] ${type}. ${subject}\n\n${longBodySplit}`);
   });
 });
 

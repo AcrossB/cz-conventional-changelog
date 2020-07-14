@@ -166,7 +166,7 @@ module.exports = function(options) {
           width: options.maxLineWidth
         };
 
-        const id = answers.id;
+        const id = answers.id.toUpperCase();
 
         // Hard limit this line in the validate
         const head = `[${id}] ${answers.type}. ${answers.subject}`;
