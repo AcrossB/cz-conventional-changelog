@@ -101,8 +101,8 @@ module.exports = function(options) {
             return filteredSubject.length == 0
               ? 'subject is required'
               : filteredSubject.length <= maxSummaryLength(options, answers)
-              ? true
-              : 'Subject length must be less than or equal to ' +
+                ? true
+                : 'Subject length must be less than or equal to ' +
                 maxSummaryLength(options, answers) +
                 ' characters. Current length is ' +
                 filteredSubject.length +
@@ -131,46 +131,18 @@ module.exports = function(options) {
           type: 'checkbox',
           name: 'module',
           message: "Select relevant modules",
-          choices: ['backend', 'packages/workpad', 'packages/dashboard', 'packages/product'].map((value) => ({
-            value,
-            name: `module:${value}`
+          choices: ['backend', 'packages/workpad', 'packages/dashboard', 'packages/product', 'none'].map((name) => ({
+            name: name.charAt(0).toUpperCase() + name.substring(1),
+            value: name === 'none' ? name : `module:${name}`,
           })),
           validate: function(input) {
             if (!input?.length) {
               return 'Must select one module at least';
-            } else {
-              return true;
             }
-          }
-        },
-        {
-          type: 'confirm',
-          name: 'isBreaking',
-          message: 'Are there any breaking changes?',
-          default: false
-        },
-        {
-          type: 'input',
-          name: 'breakingBody',
-          default: '-',
-          message:
-            'A BREAKING CHANGE commit requires a body. Please enter a longer description of the commit itself:\n',
-          when: function(answers) {
-            return answers.isBreaking && !answers.body;
-          },
-          validate: function(breakingBody, answers) {
-            return (
-              breakingBody.trim().length > 0 ||
-              'Body is required for BREAKING CHANGE'
-            );
-          }
-        },
-        {
-          type: 'input',
-          name: 'breaking',
-          message: 'Describe the breaking changes:\n',
-          when: function(answers) {
-            return answers.isBreaking;
+            if (input.length > 1 && input.includes('none')) {
+              return '"None" cannot be selected with other modules';
+            }
+            return true;
           }
         },
       ]).then(function(answers) {
@@ -189,16 +161,9 @@ module.exports = function(options) {
 
         // Wrap these lines at options.maxLineWidth characters
         var body = answers.body ? wrap(answers.body, wrapOptions) : false;
-        const module = ['Modules', answers.module.map((m) => `- ${m}`)].join('\n');
+        const module = ['Modules', ...answers.module.map((m) => `- ${m}`)].join('\n');
 
-        // Apply breaking change prefix, removing it if already present
-        var breaking = answers.breaking ? answers.breaking.trim() : '';
-        breaking = breaking
-          ? 'BREAKING CHANGE: ' + breaking.replace(/^BREAKING CHANGE: /, '')
-          : '';
-        breaking = breaking ? wrap(breaking, wrapOptions) : false;
-
-        commit(filter([head, body, module, breaking]).join('\n\n'));
+        commit(filter([head, body, module]).join('\n\n'));
       });
     }
   };
