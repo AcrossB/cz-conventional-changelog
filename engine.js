@@ -128,6 +128,22 @@ module.exports = function(options) {
           default: options.defaultBody
         },
         {
+          type: 'checkbox',
+          name: 'module',
+          message: "Select relevant modules",
+          choices: ['backend', 'packages/workpad', 'packages/dashboard', 'packages/product'].map((value) => ({
+            value,
+            name: `module:${value}`
+          })),
+          validate: function(input) {
+            if (!input?.length) {
+              return 'Must select one module at least';
+            } else {
+              return true;
+            }
+          }
+        },
+        {
           type: 'confirm',
           name: 'isBreaking',
           message: 'Are there any breaking changes?',
@@ -173,6 +189,7 @@ module.exports = function(options) {
 
         // Wrap these lines at options.maxLineWidth characters
         var body = answers.body ? wrap(answers.body, wrapOptions) : false;
+        const module = ['Modules', answers.module.map((m) => `- ${m}`)].join('\n');
 
         // Apply breaking change prefix, removing it if already present
         var breaking = answers.breaking ? answers.breaking.trim() : '';
@@ -181,7 +198,7 @@ module.exports = function(options) {
           : '';
         breaking = breaking ? wrap(breaking, wrapOptions) : false;
 
-        commit(filter([head, body, breaking]).join('\n\n'));
+        commit(filter([head, body, module, breaking]).join('\n\n'));
       });
     }
   };
