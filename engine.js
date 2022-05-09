@@ -131,7 +131,7 @@ module.exports = function(options) {
           type: 'checkbox',
           name: 'module',
           message: "Select relevant modules",
-          choices: ['backend', 'packages/workpad', 'packages/dashboard', 'packages/product', 'none'].map((name) => ({
+          choices: ['backend', 'packages/workpad', 'packages/dashboard', 'packages/product', 'packages/shared', 'none'].map((name) => ({
             name: name.charAt(0).toUpperCase() + name.substring(1),
             value: name === 'none' ? name : `module:${name}`,
           })),
