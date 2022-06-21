@@ -131,7 +131,17 @@ module.exports = function(options) {
           type: 'checkbox',
           name: 'module',
           message: "Select relevant modules",
-          choices: ['backend', 'packages/workpad', 'packages/dashboard', 'packages/product', 'packages/app-root', 'packages/shared-vue3', 'packages/shared-js', 'none'].map((name) => ({
+          choices: [
+            'backend',
+            'packages/workpad',
+            'packages/setting',
+            'packages/product',
+            'packages/dashboard',
+            'packages/app-root',
+            'packages/shared-vue3',
+            'packages/shared-js',
+            'none',
+          ].map((name) => ({
             name: name.charAt(0).toUpperCase() + name.substring(1),
             value: name === 'none' ? name : `module:${name}`,
           })),
