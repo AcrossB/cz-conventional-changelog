@@ -143,7 +143,7 @@ module.exports = function(options) {
             'none',
           ].map((name) => ({
             name: name.charAt(0).toUpperCase() + name.substring(1),
-            value: name === 'none' ? name : `module:${name}`,
+            value: `module:${name}`,
           })),
           validate: function(input) {
             if (!input?.length) {
