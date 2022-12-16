@@ -132,14 +132,8 @@ module.exports = function(options) {
           name: 'module',
           message: "Select relevant modules",
           choices: [
-            'backend',
-            'packages/workpad',
-            'packages/setting',
-            'packages/product',
-            'packages/dashboard',
             'packages/app-root',
-            'packages/shared-vue3',
-            'packages/shared-js',
+            'packages/wps',
             'none',
           ].map((name) => ({
             name: name.charAt(0).toUpperCase() + name.substring(1),
