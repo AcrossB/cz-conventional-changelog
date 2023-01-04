@@ -132,6 +132,7 @@ module.exports = function(options) {
           name: 'module',
           message: "Select relevant modules",
           choices: [
+            'backend',
             'packages/app-root',
             'packages/wps',
             'none',
