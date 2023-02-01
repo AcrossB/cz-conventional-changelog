@@ -140,6 +140,7 @@ module.exports = function(options) {
             'packages/app-root',
             'packages/shared-vue3',
             'packages/shared-js',
+            'packages/havana',
             'none',
           ].map((name) => ({
             name: name.charAt(0).toUpperCase() + name.substring(1),
