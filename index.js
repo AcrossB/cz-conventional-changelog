@@ -1,7 +1,6 @@
 'format cjs';
 
-var engine = require('./engine');
-var modules = require('./modules');
+var engines = require('./engines');
 var conventionalCommitTypes = require('conventional-commit-types');
 var configLoader = require('commitizen').configLoader;
 
@@ -46,6 +45,5 @@ var options = {
   } catch (err) {}
 })(options);
 
-const targetName = process.argv[process.argv.length - 1];
-options.modules = modules[targetName] || modules.empty;
+var engine = engines[process.argv[process.argv.length - 1]] || engines.simple;
 module.exports = engine(options);
