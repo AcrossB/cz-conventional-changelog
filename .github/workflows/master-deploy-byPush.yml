@@ -18,4 +18,4 @@ jobs:
       - name: Publish Package
         run: npm publish --registry=https://npm.pkg.github.com
         env:
-          NODE_AUTH_TOKEN: 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
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
