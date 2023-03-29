@@ -4,8 +4,10 @@
   "description": "Commitizen adapter following the conventional-changelog format.",
   "main": "index.js",
   "scripts": {
-    "commit": "git-cz --hook",
-    "format": "prettier --write *.js"
+    "commit": "git-cz",
+    "test": "mocha *.test.js",
+    "format": "prettier --write *.js",
+    "semantic-release": "semantic-release"
   },
   "homepage": "https://github.com/commitizen/cz-conventional-changelog",
   "repository": {
