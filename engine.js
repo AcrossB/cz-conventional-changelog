@@ -58,14 +58,7 @@ module.exports = function(options) {
     // By default, we'll de-indent your commit
     // template and will keep empty lines.
     prompter: function(cz, commit) {
-      // Let's ask some questions of the user
-      // so that we can populate our commit
-      // template.
-      //
-      // See inquirer.js docs for specifics.
-      // You can also opt to use another input
-      // collection library if you prefer.
-      cz.prompt([
+      var propmpts = [
         {
           type: 'input',
           name: 'id',
@@ -127,23 +120,13 @@ module.exports = function(options) {
             'Provide a longer description of the change: (press enter to skip)\n',
           default: options.defaultBody
         },
-        {
+      ];
+      if (options.modules.length) {
+        propmpts.push({
           type: 'checkbox',
           name: 'module',
           message: "Select relevant modules",
-          choices: [
-            'backend',
-            'packages/workpad',
-            'packages/setting',
-            'packages/product',
-            'packages/dashboard',
-            'packages/cs',
-            'packages/app-root',
-            'packages/shared-vue3',
-            'packages/shared-js',
-            'packages/shared-react18',
-            'none',
-          ].map((name) => ({
+          choices: options.modules.map((name) => ({
             name: name.charAt(0).toUpperCase() + name.substring(1),
             value: `module:${name}`,
           })),
@@ -156,8 +139,10 @@ module.exports = function(options) {
             }
             return true;
           }
-        },
-      ]).then(function(answers) {
+        });
+      }
+
+      cz.prompt(propmpts).then(function(answers) {
         var wrapOptions = {
           trim: true,
           cut: false,
@@ -173,9 +158,11 @@ module.exports = function(options) {
 
         // Wrap these lines at options.maxLineWidth characters
         var body = answers.body ? wrap(answers.body, wrapOptions) : false;
-        const module = ['Modules', ...answers.module.map((m) => `- ${m}`)].join('\n');
-
-        commit(filter([head, body, module]).join('\n\n'));
+        if (answers.module) {
+          commit(filter([head, body, ['Modules', ...answers.module.map((m) => `- ${m}`)].join('\n')]).join('\n\n'));
+        } else {
+          commit(filter([head, body]).join('\n\n'));
+        }
       });
     }
   };
